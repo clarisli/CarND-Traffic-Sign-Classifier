@@ -14,15 +14,16 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./examples/visualization.jpg "Visualization"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
+[image2]: ./examples/grayscale.png "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
-[image9]: ./examples/histogram.png "Training Data Distribution"
-[image10]: ./examples/traffic_signs.png "Traffic Signs"
+[image4]: ./examples/web_images.png "Traffic Signs"
+[image5]: ./examples/histogram.png "Training Data Distribution"
+[image6]: ./examples/traffic_signs.png "Traffic Signs"
+[image7]: ./examples/normalize.png "Normalize"
+[image8]: ./examples/fake.png "Fake"
+[image9]: ./examples/histogram_fake.png "New Training Data Distribution"
+[image10]: ./examples/augmented.png "Augmented"
+[image11]: ./examples/web_images.png "Augmented"
 
 ### Dataset
 I trained the model using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). Please [download the dataset here](https://d17h27t6h515a5.cloudfront.net/topher/2016/November/581faac4_traffic-signs-data/traffic-signs-data.zip), where the images have already been resized to 32x32. 
@@ -52,12 +53,12 @@ signs data set:
 
 #### 2. Exploratory visualization of the dataset
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the triaing data distribute over 43 classes. Each bin represents one class and its height indicates how many examples in that class.
+Here is an exploratory visualization of the data set. It is a bar chart showing how the training data distribute over 43 classes. Each bin represents one class and its height indicates how many examples in that class.
 
-![alt text][image9]
+![alt text][image5]
 
 Here are the traffic sign images each with its corresponding class id.
-![alt text][image10]
+![alt text][image6]
 
 You can refer to [signnames.csv](./signnames.csv) for the name of each traffic sign.
 
@@ -73,27 +74,31 @@ Here is an example of a traffic sign image before and after grayscaling.
 
 As a last step, I normalized the image data because it ensures each pixel has similar data distribution. This helps reaching convergence faster while training the network.
 
-![alt text][image2]
+![alt text][image7]
 
-I decided to generate additional data because generally more data always helps. Also there are some classes under-represented in the dataset, I can make it more balanced by adding some data to the minority classes.
+I decided to generate additional data because there are some classes under-represented in the dataset, I can make the model more robust and balanced by adding some randomly generated data into those minority classes.
 
-To add more data to the the data set, I applied data augmentation to the dataset, randomly scale, shear, translate, and adjusting brightness of an image. 
+To add more data to the the data set, I applied data augmentation to the dataset, randomly scale, shear, translate, and adjusting the brightness of an image. 
 
 Here is an example of an original image and an augmented image:
 
-![alt text][image3]
+![alt text][image10]
 
-The difference between the original data set and the augmented data set is the following ... 
+Following are some more examples on the fake images generated with random noise:
 
-![alt text][image3]
+![alt text][image8]
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+The new training data distribution with fake images:
+
+![alt text][image9]
+
+#### 2. Model Achitecture
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
+| Input         		| 32x32x1 Grayscale image   							| 
 | Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
@@ -105,20 +110,28 @@ My final model consisted of the following layers:
  
 
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Training the Model
 
-To train the model, I used an ....
+To train the model, I used my local machine and AWS.
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+My final training parameters:
+* EPOCHS = ?
+* BATCH_SIZE = ?
+* SIGMA = 0.1
+* OPTIMIZER: AdamOptimizer (learning rate = 0.001)
+
+#### 4. Approach Taken for Finding a Solution
 
 My final model results were:
 * training set accuracy of ?
 * validation set accuracy of ? 
 * test set accuracy of ?
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
+An iterative approach was chosen:
+* I tried the classic LeNet as the first architecture. I chose it because it is shallow and simple.
+* With LeNet, I obtained an accuracy around 90%/training and 83%/validation - since both are quite low, looks like it's underfitting.
+* I decided to apply the data augmentation technique to add more data and noise to the training set. It helped to boost my model to an accuracy around 94%/training and 93%/validation.
+* I then added an extra convolution and pooling layer to the architecture. 
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 * Which parameters were tuned? How were they adjusted and why?
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
@@ -129,14 +142,13 @@ If a well known architecture was chosen:
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
  
 
-### Test a Model on New Images
+### Test on New Images
 
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Five German traffic signs found on the web.
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image11]
 
 The first image might be difficult to classify because ...
 
