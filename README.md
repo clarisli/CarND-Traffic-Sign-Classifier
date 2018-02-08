@@ -30,7 +30,7 @@ The goals / steps of this project are the following:
 [image15]: ./examples/featuremap3.png "Feature Map"
 
 ### Dataset
-I trained the model using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). Please [download the dataset here](https://d17h27t6h515a5.cloudfront.net/topher/2016/November/581faac4_traffic-signs-data/traffic-signs-data.zip), where the images have already been resized to 32x32. 
+I trained the model using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). Please [download the dataset here](https://d17h27t6h515a5.cloudfront.net/topher/2017/February/5898cd6f_traffic-signs-data/traffic-signs-data.zip), where the images have already been resized to 32x32. 
 
 ---
 ### Writeup / README
@@ -40,7 +40,7 @@ I trained the model using the [German Traffic Sign Dataset](http://benchmark.ini
 You're reading it! 
 
 #### 2. Jupyter Notebook
-Here's a link to my [project code](https://github.com/clarisli/CarND-Traffic-Sign-Classifier/blob/master/Traffic_Sign_Classifier.ipynb)
+Here's a link to my [project code](Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
@@ -61,7 +61,7 @@ Here is an exploratory visualization of the data set. It is a bar chart showing 
 
 ![alt text][image5]
 
-Here are the traffic sign images each with its corresponding class id.
+Here are the traffic sign images each with its corresponding class ID.
 ![alt text][image6]
 
 You can refer to [signnames.csv](./signnames.csv) for the name of each traffic sign.
@@ -80,9 +80,9 @@ As a last step, I normalized the image data because it ensures each pixel has si
 
 ![alt text][image7]
 
-I decided to generate additional data because there are some classes under-represented in the dataset, I can make the model more robust and balanced by adding some randomly generated data into those minority classes.
+I decided to generate additional data because some classes are under-represented in the dataset, I can make the model more robust and balanced by adding some randomly generated data into those minority classes.
 
-To add more data to the the data set, I applied data augmentation to the dataset, randomly scale, shear, translate, and adjusting the brightness of an image. 
+To add more data to the the data set, I applied data augmentation to the dataset, randomly scale, shear, translate, and adjusting the brightness of the image. 
 
 Here is an example of an original image and an augmented image:
 
@@ -115,14 +115,11 @@ My final model consisted of the following layers:
 | Fully connected		| input 1600, output 120        									|
 | Fully connected		| input 120, output 84        									|
 | Softmax				| input 84, output 43        									|
-|						|												|
-|						|												|
- 
 
 
 #### 3. Training the Model
 
-To train the model, I used my local machine and AWS.
+To train the model, I used an EC2 GPU instance on AWS.
 
 My final training parameters:
 * EPOCHS = 30
@@ -142,9 +139,9 @@ An iterative approach was chosen:
 * LeNet turned out to be a good choice. I obtained a training accuracy 99% / validation 89% - since the training accuracy is much higher than validation, looks like it's overfitting.
 * To overcome this, I decided to apply data augmentation technique to add more data and noise to the training set. Some classes are under-presented in the original training set, I made sure every class has at least 809(the mean of the training set) images. It helped to boost the model to a training accuracy 99.7% / validation 93.2% / test 91%.
 * The model is still overfitting. I then added 2 layers of dropouts with a keep rate of 75% for the first layer, and 50% for the second. This is my first qualified solution, with a training accuracy 99.4% / validation 96.1% / test 93%. 
-* The test accuracy still needs improvement. I figured it's the the time to add an extra layer to my net because the model might need more parameters to gain a better representation of the traffic signs. I abtained training accuracy 99.9% / validation 96.7%, and test 94.2%.
-* The goal was to increase the validation and test accuracy, I generated more random data to the training set and increased the training set to 3000 examples per class and trained for 30 epoch. A final result of training accuracy 99.9% / validation 98.3% / test 97.1% was obtained.
-* In additional to above, I also tuned other parameters such as the randomness in augmented data, the keep probability of dropout, learning rate, stride size, number of neurons ... etc. 
+* The test accuracy still needs improvement. I then added an extra layer to my net because the model might need more parameters to gain a better representation of the traffic signs. I abtained a training accuracy of 99.9% / validation 96.7% / test 94.2%.
+* The goal was to increase the validation and test accuracy, I generated more random data to the training set and increased the training set to 3000 examples per class and trained for 30 epoch. I obtained a final result of training accuracy 99.9% / validation 98.3% / test 97.1%.
+* In additional to above, I also tuned some other parameters such as the randomness in augmented data, the keep probability of dropout, learning rate, stride size, number of neurons ... etc. 
  
 
 ### Test on New Images
@@ -174,12 +171,11 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 #### 3. Softmax Probabilities
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+The code for making predictions on my final model is located in the 25th cell of the Ipython notebook.
 
 ![alt text][image12]
 
 ### Visualizing the Neural Network
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 ![alt text][image13]
 ![alt text][image14]
