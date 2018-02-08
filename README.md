@@ -25,7 +25,9 @@ The goals / steps of this project are the following:
 [image10]: ./examples/augmented.png "Augmented"
 [image11]: ./examples/web_images.png "Web Images"
 [image12]: ./examples/softmax.png "Softmax"
-[image13]: ./examples/featuremap.png "Feature Map"
+[image13]: ./examples/featuremap1.png "Feature Map"
+[image14]: ./examples/featuremap2.png "Feature Map"
+[image15]: ./examples/featuremap3.png "Feature Map"
 
 ### Dataset
 I trained the model using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). Please [download the dataset here](https://d17h27t6h515a5.cloudfront.net/topher/2016/November/581faac4_traffic-signs-data/traffic-signs-data.zip), where the images have already been resized to 32x32. 
@@ -180,5 +182,7 @@ The code for making predictions on my final model is located in the 11th cell of
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 ![alt text][image13]
+![alt text][image14]
+![alt text][image15]
 
 It looks like the first layer is detecting the edges and shape, and hard to tell what characteristics it uses for the deeper layers.
