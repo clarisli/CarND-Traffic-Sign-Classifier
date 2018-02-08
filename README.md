@@ -82,7 +82,7 @@ As a last step, I normalized the image data because it ensures each pixel has si
 
 I decided to generate additional data because some classes are under-represented in the dataset, I can make the model more robust and balanced by adding some randomly generated data into those minority classes.
 
-To add more data to the the data set, I applied data augmentation to the dataset, randomly scale, shear, translate, and adjusting the brightness of the image. 
+To add more data to the the data set, I applied data augmentation to the dataset, randomly rotate, shear, translate, and adjusting the brightness of the image. 
 
 Here is an example of an original image and an augmented image:
 
@@ -137,9 +137,9 @@ My final model results were:
 An iterative approach was chosen:
 * I tried the classic LeNet as the initial architecture. I chose it because it is shallow and simple.
 * LeNet turned out to be a good choice. I obtained a training accuracy 99% / validation 89% - since the training accuracy is much higher than validation, looks like it's overfitting.
-* To overcome this, I decided to apply data augmentation technique to add more data and noise to the training set. Some classes are under-presented in the original training set, I made sure every class has at least 809(the mean of the training set) images. It helped to boost the model to a training accuracy 99.7% / validation 93.2% / test 91%.
+* To overcome this, I decided to apply data augmentation technique to add more data and noise to the training set. Some classes are under-represented in the original training set, I made sure every class has at least 809(the mean of the training set) images. It helped to boost the model to a training accuracy 99.7% / validation 93.2% / test 91%.
 * The model is still overfitting. I then added 2 layers of dropouts with a keep rate of 75% for the first layer, and 50% for the second. This is my first qualified solution, with a training accuracy 99.4% / validation 96.1% / test 93%. 
-* The test accuracy still needs improvement. I then added an extra layer to my net because the model might need more parameters to gain a better representation of the traffic signs. I abtained a training accuracy of 99.9% / validation 96.7% / test 94.2%.
+* The test accuracy still needs improvement. I then added an extra layer to my net because the model might need more parameters to gain a better representation of the traffic signs. I obtained a training accuracy of 99.9% / validation 96.7% / test 94.2%.
 * The goal was to increase the validation and test accuracy, I generated more random data to the training set and increased the training set to 3000 examples per class and trained for 30 epoch. I obtained a final result of training accuracy 99.9% / validation 98.3% / test 97.1%.
 * In additional to above, I also tuned some other parameters such as the randomness in augmented data, the keep probability of dropout, learning rate, stride size, number of neurons ... etc. 
  
